@@ -14,6 +14,7 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
+        //fullscreen on android
         @Suppress("DEPRECATION")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.hide(WindowInsets.Type.statusBars())
@@ -23,9 +24,10 @@ class RegisterActivity : AppCompatActivity() {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
             )
         }
-
+        
         setupActionBar()
 
+        //go to login page
         tv_login.setOnClickListener {
             val intent = Intent(this@RegisterActivity,LoginActivity::class.java)
             startActivity(intent)
