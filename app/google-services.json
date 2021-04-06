@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "742346612027",
+    "project_id": "retailstudio-c046b",
+    "storage_bucket": "retailstudio-c046b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:742346612027:android:6c58b6c46efc23c4ecab1e",
+        "android_client_info": {
+          "package_name": "com.example.retailstudios"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "742346612027-or5elrei7fv1tgkibradqdf852ahh44e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-7ivTPWOMzEd48ZVM13h9FZjjOjTKsEk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "742346612027-or5elrei7fv1tgkibradqdf852ahh44e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

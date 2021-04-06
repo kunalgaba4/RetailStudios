@@ -1,3 +1,30 @@
 <resources>
     <string name="app_name">RetailStudios</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- splash -->
+    <string name="app_title">RetailStudio</string>
+
+    <!-- login -->
+    <string name="title_login">LOGIN</string>
+    <string name="et_hint_email_id">Email ID</string>
+    <string name="et_hint_password">Password</string>
+    <string name="button_lbl_login">Login</string>
+    <string name="dont_have_an_account">Don\'t have an account?</string>
+    <string name="register"><u>Register</u></string>
+    <string name="lbl_forgetPassword">Forget Password?</string>
+
+    <!-- register -->
+    <string name="create_an_account">CREATE AN ACCOUNT</string>
+    <string name="hint_last_name">Last name</string>
+    <string name="hint_first_name">First name</string>
+    <string name="et_hint_confirm_password">Confirm Password</string>
+
+    <string name="i_agree_to_the_terms_and_condition">I Agree To The <u>Terms &amp; Condition</u></string>
+    <string name="btn_lbl_register">Register</string>
+
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="login"><u>Login</u></string>
+
 </resources>
