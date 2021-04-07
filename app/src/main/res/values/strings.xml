@@ -34,5 +34,8 @@
     <string name="err_msg_agree_terms_and_condition">Please agree terms and condition</string>
    <string name="registering_successful">Thanks for registering!</string>
 
+    <!-- progress bar -->
+    <string name="please_wait">Please Wait&#8230;</string>
+
 
 </resources>
