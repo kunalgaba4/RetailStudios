@@ -45,7 +45,7 @@ class RegisterActivity : BaseActivity() {
         }
     }
 
-    //setup action bar to display arrow back
+    //setup action bar to display arrow back and going to login page
     private fun setupActionBar(){
         setSupportActionBar(tv_toolbar_register_activity)
 
