@@ -16,6 +16,7 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -50,6 +51,8 @@ dependencies {
     //firebase BoM
     implementation platform('com.google.firebase:firebase-bom:26.8.0')
     implementation 'com.google.firebase:firebase-analytics-ktx'
+    // Declare the dependency for the Firebase Authentication library
+    implementation 'com.google.firebase:firebase-auth-ktx'
 
     //retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.7.1'
@@ -72,4 +75,6 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:2.3.4"
 
     implementation "androidx.preference:preference-ktx:1.1.1"
+
+    implementation 'com.android.support:multidex:1.0.3'
 }
