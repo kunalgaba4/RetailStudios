@@ -39,7 +39,7 @@ class RegisterActivity : BaseActivity() {
             startActivity(intent)
         }
 
-        //validate details on button click and register user to firebase
+        //validate details on button click and register user to database
         btn_register.setOnClickListener{
            registerUser()
         }
