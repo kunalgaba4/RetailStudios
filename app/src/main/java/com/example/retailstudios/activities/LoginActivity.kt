@@ -10,6 +10,7 @@ import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
 import com.example.retailstudios.R
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_register.*
 
@@ -28,17 +29,25 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
             )
         }
+
+        //click event assigned to ForgetPassword text
+        tv_forget_password.setOnClickListener(this)
+        //click event assigned to Login button
+        btn_login.setOnClickListener(this)
+        //click event assigned to Register text
+        tv_register.setOnClickListener(this)
+
     }
 
     //In login screen the clickable components are Login Button, ForgetPassword and Register Text
     override fun onClick(view: View?) {
         if (view != null) {
             when (view.id) {
-                R.id.tv_forget_password -> {
 
+                R.id.tv_forget_password -> {
                 }
                 R.id.btn_login -> {
-                    validateLoginDetails()
+                    logInRegisteredUser()
                 }
                 R.id.tv_register -> {
                     // Launch the register screen when the user clicks on the text
@@ -51,18 +60,49 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
 
     private fun validateLoginDetails(): Boolean {
         return when {
-            TextUtils.isEmpty(et_email.text.toString().trim { it <= ' ' }) -> {
+            TextUtils.isEmpty(etl_email.text.toString().trim { it <= ' ' }) -> {
                 showErrorSnackBar(resources.getString(R.string.err_msg_enter_email), true)
                 false
             }
-            TextUtils.isEmpty(et_password.text.toString().trim { it <= ' ' }) -> {
+            TextUtils.isEmpty(etl_password.text.toString().trim { it <= ' ' }) -> {
                 showErrorSnackBar(resources.getString(R.string.err_msg_enter_password), true)
                 false
             }
             else -> {
-                showErrorSnackBar("Your details are valid", false)
+                //showErrorSnackBar("Your details are valid", false)
                 true
             }
+        }
+    }
+
+    private fun logInRegisteredUser(){
+
+        if (validateLoginDetails()){
+
+            //calling function from baseactivity to show progressbar
+            showProgressDialog(resources.getString(R.string.please_wait))
+
+            //Get the text from editText and trim the space
+            val email:String = etl_email.text.toString().trim{it <= ' '}
+            val password:String = etl_password.text.toString().trim{it <= ' '}
+
+            //LogIn using firebaseAuth
+            FirebaseAuth.getInstance().signInWithEmailAndPassword(email,password)
+                .addOnCompleteListener{ task ->
+
+                    //calling function from baseactivity to disappear a progressbar
+                    hideProgressDialog()
+
+                    if (task.isSuccessful){
+                        //TODO - Send user to main activity
+                        //if the registration is successfully done
+                        showErrorSnackBar("You are logged in successfully",false)
+
+                    } else{
+                        //if the registering is not successful then show error message
+                        showErrorSnackBar(task.exception!!.message.toString(),true)
+                    }
+                }
         }
     }
 }

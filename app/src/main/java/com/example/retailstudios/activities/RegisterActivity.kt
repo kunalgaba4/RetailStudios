@@ -106,6 +106,7 @@ class RegisterActivity : BaseActivity() {
             //calling function from baseactivity to show progressbar
             showProgressDialog(resources.getString(R.string.please_wait))
 
+            //Get the text from editText and trim the space
             val email:String = et_email.text.toString().trim{it <= ' '}
             val password:String = et_password.text.toString().trim{it <= ' '}
 
