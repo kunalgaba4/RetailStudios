@@ -35,8 +35,7 @@ class RegisterActivity : BaseActivity() {
 
         //go to login page
         tv_login.setOnClickListener {
-            val intent = Intent(this@RegisterActivity,LoginActivity::class.java)
-            startActivity(intent)
+           onBackPressed()
         }
 
         //validate details on button click and register user to database
