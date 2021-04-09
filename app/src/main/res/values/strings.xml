@@ -42,5 +42,8 @@
     <string name="forgot_password_title_description">Enter your username and email adddress we will send you a email to reset your password</string>
     <string name="btn_lbl_submit">Submit</string>
 
+    <string name="email_sent_success">Email sent successfully to reset your password</string>
+
+
 
 </resources>
