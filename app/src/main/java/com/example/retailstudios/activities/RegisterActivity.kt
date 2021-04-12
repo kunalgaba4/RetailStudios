@@ -7,7 +7,10 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.view.WindowInsets
 import android.view.WindowManager
+import android.widget.Toast
 import com.example.retailstudios.R
+import com.example.retailstudios.firestore.FirestoreClass
+import com.example.retailstudios.models.User
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
@@ -114,26 +117,45 @@ class RegisterActivity : BaseActivity() {
                 .addOnCompleteListener(
                     OnCompleteListener <AuthResult>{ task ->
 
-                        //calling function from baseactivity to disappear a progressbar
-                        hideProgressDialog()
-
                         //if the registration is successfully done
                         if (task.isSuccessful){
+
                             //firebase registered user
                             val firebaseUser:FirebaseUser = task.result!!.user!!
 
-                            showErrorSnackBar("You are registered successfully. Your user id is ${firebaseUser.uid}",false)
+                            val user = User(
+                                firebaseUser.uid,
+                                et_first_name.text.toString().trim{it <= ' '},
+                                et_last_name.text.toString().trim{it <= ' '},
+                                et_email.text.toString().trim{it <= ' '}
+                            )
+
+                            //store user info in firestore database
+                            FirestoreClass().registerUser(this@RegisterActivity,user)
 
                             //go back to login activity
-                            FirebaseAuth.getInstance().signOut()
-                            finish()
+                           // FirebaseAuth.getInstance().signOut()
+                           // finish()
                         }
                         else{
+                            //calling function from baseactivity to disappear a progressbar
+                            hideProgressDialog()
+
                             //if the registering is not successful then show error message
                             showErrorSnackBar(task.exception!!.message.toString(),true)
                         }
-                    }
-                )
+                    })
         }
+    }
+
+    fun userRegisterationSuccess(){
+        //hide the progress dialog
+        hideProgressDialog()
+
+        Toast.makeText(this@RegisterActivity,
+            resources.getString(R.string.register_success),
+            Toast.LENGTH_LONG)
+            .show()
+
     }
 }
