@@ -1,6 +1,8 @@
 package com.example.retailstudios.firestore
 
 import android.app.Activity
+import android.content.Context
+import android.content.SharedPreferences
 import android.util.Log
 import com.example.retailstudios.activities.LoginActivity
 import com.example.retailstudios.activities.RegisterActivity
@@ -56,6 +58,22 @@ class FirestoreClass {
 
                 //we have received the document snapshot which converted into the User Data model object
                 val user = document.toObject(User::class.java)!!
+
+
+                val sharedPreferences =
+                    activity.getSharedPreferences(
+                        Constants.RETAILSTUDIOS_PREFERENCES,
+                        Context.MODE_PRIVATE
+                    )
+
+                //data storeage in device
+                val editor: SharedPreferences.Editor = sharedPreferences.edit()
+                //key:value  logged_in_username :firstname,lastname
+                editor.putString(
+                    Constants.LOGGED_IN_USERNAME,
+                    "${user.firstName} ${user.lastName}"
+                )
+                editor.apply()
 
                 //TODO Step 6: Pass the result to the Login Activity.
                 //START
