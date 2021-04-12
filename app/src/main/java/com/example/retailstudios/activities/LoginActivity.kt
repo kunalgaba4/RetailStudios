@@ -6,10 +6,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
 import com.example.retailstudios.R
+import com.example.retailstudios.firestore.FirestoreClass
+import com.example.retailstudios.models.User
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_register.*
@@ -36,6 +39,21 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         btn_login.setOnClickListener(this)
         //click event assigned to Register text
         tv_register.setOnClickListener(this)
+
+    }
+
+    fun userLoggedInSuccess(user: User){
+        //hide the progress dialog
+        hideProgressDialog()
+
+        //print the user datials in the log as of now
+        Log.i("First Name: ",user.firstName)
+        Log.i("Last Name: ",user.lastName)
+        Log.i("Email: ",user.email)
+
+        //redirect the user to Main Screen after Log in
+        startActivity(Intent(this@LoginActivity,MainActivity::class.java))
+        finish()
 
     }
 
@@ -93,15 +111,12 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
             FirebaseAuth.getInstance().signInWithEmailAndPassword(email,password)
                 .addOnCompleteListener{ task ->
 
-                    //calling function from baseactivity to disappear a progressbar
-                    hideProgressDialog()
-
                     if (task.isSuccessful){
-                        //TODO - Send user to main activity
-                        //if the registration is successfully done
-                        showErrorSnackBar("You are logged in successfully",false)
+
+                        FirestoreClass().getUserDetails(this@LoginActivity)
 
                     } else{
+                        hideProgressDialog()
                         //if the registering is not successful then show error message
                         showErrorSnackBar(task.exception!!.message.toString(),true)
                     }
