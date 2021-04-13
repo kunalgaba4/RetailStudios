@@ -51,10 +51,16 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         Log.i("Last Name: ",user.lastName)
         Log.i("Email: ",user.email)
 
-        //redirect the user to Main Screen after Log in
-        startActivity(Intent(this@LoginActivity,MainActivity::class.java))
+        if (user.profileCompleted == 0){
+            //if user profile is incomplete then launch the UserProfileActivity
+            val intent = Intent(this@LoginActivity,UserProfileActivity::class.java)
+            startActivity(intent)
+        }else{
+            //Redirect the user to Main Screen after log in.
+            val intent = Intent(this@LoginActivity,MainActivity::class.java)
+            startActivity(intent)
+        }
         finish()
-
     }
 
     //In login screen the clickable components are Login Button, ForgetPassword and Register Text
