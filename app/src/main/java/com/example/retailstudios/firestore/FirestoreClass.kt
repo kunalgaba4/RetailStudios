@@ -5,9 +5,9 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.net.Uri
 import android.util.Log
-import com.example.retailstudios.activities.LoginActivity
-import com.example.retailstudios.activities.RegisterActivity
-import com.example.retailstudios.activities.UserProfileActivity
+import com.example.retailstudios.ui.activities.LoginActivity
+import com.example.retailstudios.ui.activities.RegisterActivity
+import com.example.retailstudios.ui.activities.UserProfileActivity
 import com.example.retailstudios.models.User
 import com.example.retailstudios.utils.Constants
 import com.google.firebase.auth.FirebaseAuth
@@ -15,13 +15,12 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import java.net.URI
 
 class FirestoreClass {
 
     private val mFirestore = FirebaseFirestore.getInstance()
 
-    fun registerUser(activity: RegisterActivity,userInfo: User){
+    fun registerUser(activity: RegisterActivity, userInfo: User){
         //The "users" is collection name, if the collection is already created then it will not create the same one again.
         mFirestore.collection(Constants.USERS)
             //document ID for users fields.Here the document it is the User ID

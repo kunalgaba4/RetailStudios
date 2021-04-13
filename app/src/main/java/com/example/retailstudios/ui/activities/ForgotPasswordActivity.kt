@@ -1,6 +1,5 @@
-package com.example.retailstudios.activities
+package com.example.retailstudios.ui.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.example.retailstudios.R

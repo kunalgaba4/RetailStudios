@@ -1,11 +1,10 @@
-package com.example.retailstudios.activities
+package com.example.retailstudios.ui.activities
 
 import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
@@ -13,7 +12,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.bumptech.glide.Glide
 import com.example.retailstudios.R
 import com.example.retailstudios.firestore.FirestoreClass
 import com.example.retailstudios.models.User
@@ -118,7 +116,7 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
             resources.getString(R.string.msg_profile_update_success),
             Toast.LENGTH_SHORT).show()
 
-        startActivity(Intent(this@UserProfileActivity,MainActivity::class.java))
+        startActivity(Intent(this@UserProfileActivity, MainActivity::class.java))
         finish()
     }
 

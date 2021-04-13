@@ -1,4 +1,4 @@
-package com.example.retailstudios.activities
+package com.example.retailstudios.ui.activities
 
 import android.content.Intent
 import android.os.Build
@@ -27,7 +27,7 @@ class SplashActivity : AppCompatActivity() {
         @Suppress("DEPRECATION")
     Handler().postDelayed(
         {
-            startActivity(Intent(this, LoginActivity::class.java))
+            startActivity(Intent(this, DashboardActivity::class.java))
             finish()
         },2500
     )

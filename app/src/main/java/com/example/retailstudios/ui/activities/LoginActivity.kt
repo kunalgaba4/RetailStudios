@@ -1,12 +1,9 @@
-package com.example.retailstudios.activities
+package com.example.retailstudios.ui.activities
 
 import android.content.Intent
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
 import android.text.TextUtils
-import android.util.Log
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
@@ -49,12 +46,12 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
 
         if (user.profileCompleted == 0){
             //if user profile is incomplete then launch the UserProfileActivity
-            val intent = Intent(this@LoginActivity,UserProfileActivity::class.java)
+            val intent = Intent(this@LoginActivity, UserProfileActivity::class.java)
             intent.putExtra(Constants.EXTRA_USER_DETAILS,user)
             startActivity(intent)
         }else{
             //Redirect the user to Main Screen after log in.
-            val intent = Intent(this@LoginActivity,MainActivity::class.java)
+            val intent = Intent(this@LoginActivity, DashboardActivity::class.java)
             startActivity(intent)
         }
         finish()

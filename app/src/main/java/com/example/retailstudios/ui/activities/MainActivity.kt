@@ -1,4 +1,4 @@
-package com.example.retailstudios.activities
+package com.example.retailstudios.ui.activities
 
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
