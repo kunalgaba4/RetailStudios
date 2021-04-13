@@ -3,14 +3,19 @@ package com.example.retailstudios.firestore
 import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
+import android.net.Uri
 import android.util.Log
 import com.example.retailstudios.activities.LoginActivity
 import com.example.retailstudios.activities.RegisterActivity
+import com.example.retailstudios.activities.UserProfileActivity
 import com.example.retailstudios.models.User
 import com.example.retailstudios.utils.Constants
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import java.net.URI
 
 class FirestoreClass {
 
@@ -35,6 +40,7 @@ class FirestoreClass {
                 )
             }
     }
+
     fun getCurrentUserID(): String {
         //an instance of currentUser using FirebaseAuth
         val currentUser = FirebaseAuth.getInstance().currentUser
@@ -99,4 +105,71 @@ class FirestoreClass {
                 )
             }
     }
+
+    fun updateUserProfileData(activity: Activity,userHashMap: HashMap<String,Any>){
+        mFirestore.collection(Constants.USERS).document(getCurrentUserID())
+            .update(userHashMap)
+            .addOnSuccessListener {
+                when(activity){
+                    is UserProfileActivity -> {
+                        activity.userProfileUpdateSuccess()
+                    }
+                }
+            }
+            .addOnFailureListener{ e ->
+                when(activity){
+                    is UserProfileActivity -> {
+                        activity.hideProgressDialog()
+                    }
+                }
+                Log.e(
+                    activity.javaClass.simpleName,
+                    "Error while updating the user details.",
+                    e)
+
+            }
+    }
+
+    fun uploadImageToCloudStorage(activity: Activity,imageFileURI: Uri?){
+        val sRef:StorageReference = FirebaseStorage.getInstance().reference.child(
+                Constants.USER_PROFILE_IMAGE + System.currentTimeMillis() + "."
+                + Constants.getFileExtension(
+                    activity,imageFileURI
+                )
+        )
+        sRef.putFile(imageFileURI!!).addOnSuccessListener { taskSnapshot ->
+            //the image upload is success
+            Log.e(
+                "Firebase Image URL",
+                taskSnapshot.metadata!!.reference!!.downloadUrl.toString()
+            )
+
+            //get the downloadable uri from the task snapshot
+            taskSnapshot.metadata!!.reference!!.downloadUrl
+                .addOnSuccessListener { uri ->
+                    Log.e("Downloadable image URL",uri.toString())
+                    when(activity){
+                        is UserProfileActivity -> {
+                            activity.imageUploadSuccess(uri.toString())
+                        }
+                    }
+
+                }
+        }.addOnFailureListener{ exception ->
+            //hide the progress dialog if there is any error and print the error in log
+            when(activity){
+                is UserProfileActivity -> {
+                    activity.hideProgressDialog()
+                }
+            }
+            Log.e(
+                activity.javaClass.simpleName,
+                exception.message,
+                exception
+            )
+        }
+
+    }
+
+
 }

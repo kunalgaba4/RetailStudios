@@ -13,6 +13,7 @@ import android.view.WindowManager
 import com.example.retailstudios.R
 import com.example.retailstudios.firestore.FirestoreClass
 import com.example.retailstudios.models.User
+import com.example.retailstudios.utils.Constants
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_register.*
@@ -46,14 +47,10 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         //hide the progress dialog
         hideProgressDialog()
 
-        //print the user datials in the log as of now
-        Log.i("First Name: ",user.firstName)
-        Log.i("Last Name: ",user.lastName)
-        Log.i("Email: ",user.email)
-
         if (user.profileCompleted == 0){
             //if user profile is incomplete then launch the UserProfileActivity
             val intent = Intent(this@LoginActivity,UserProfileActivity::class.java)
+            intent.putExtra(Constants.EXTRA_USER_DETAILS,user)
             startActivity(intent)
         }else{
             //Redirect the user to Main Screen after log in.

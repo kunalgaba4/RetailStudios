@@ -132,7 +132,7 @@
                     android:id="@+id/et_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
+                    android:inputType="textEmailAddress"
                     android:padding="@dimen/et_padding"
                     android:textColor="@color/colorPrimaryText"
                     android:textSize="@dimen/et_textSize">
@@ -157,7 +157,7 @@
                     android:id="@+id/et_mobile_number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
+                    android:inputType="phone"
                     android:padding="@dimen/et_padding"
                     android:textColor="@color/colorPrimaryText"
                     android:textSize="@dimen/et_textSize">
@@ -201,7 +201,7 @@
                     android:background="@drawable/drawable_gender_tab_selector"
                     android:button="@null"
                     android:gravity="center"
-                    android:text="@string/rb_lbl_male"
+                    android:text="@string/rb_lbl_female"
                     android:textColor="@drawable/drawable_gender_tab_text_color_selector"
                     android:textStyle="bold"
                     android:layout_marginRight="@dimen/profile_radio_button_marginStartEnd" />
