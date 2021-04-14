@@ -17,36 +17,64 @@ import com.example.retailstudios.firestore.FirestoreClass
 import com.example.retailstudios.models.User
 import com.example.retailstudios.utils.Constants
 import com.example.retailstudios.utils.GlideLoader
+import kotlinx.android.synthetic.main.activity_settings.*
 import kotlinx.android.synthetic.main.activity_user_profile.*
+import kotlinx.android.synthetic.main.activity_user_profile.iv_user_photo
 import java.io.IOException
 
 
 class UserProfileActivity : BaseActivity(), View.OnClickListener {
 
-     private lateinit var muserDetails: User
+     private lateinit var mUserDetails: User
      private var mSelectedImageFileUri: Uri? = null
-    private var mUserProfileImageURL: String = ""
+     private var mUserProfileImageURL: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_profile)
 
-
         if (intent.hasExtra(Constants.EXTRA_USER_DETAILS)){
         //get the user details from intent as a ParcelableExtra
-            muserDetails = intent.getParcelableExtra(Constants.EXTRA_USER_DETAILS)!!
+            mUserDetails = intent.getParcelableExtra(Constants.EXTRA_USER_DETAILS)!!
         }
-        et_first_name.isEnabled = false
-        et_first_name.setText( muserDetails.firstName)
 
-        et_last_name.isEnabled = false
-        et_last_name.setText(muserDetails.lastName)
-
+        et_first_name.setText( mUserDetails.firstName)
+        et_last_name.setText(mUserDetails.lastName)
         et_email.isEnabled = false
-        et_email.setText(muserDetails.email)
+        et_email.setText(mUserDetails.email)
+        if (mUserDetails.profileCompleted == 0){
+          tvu_title.text =resources.getString(R.string.title_complete_profile)
+            et_first_name.isEnabled = false
+            et_last_name.isEnabled = false
 
+        }else{
+            setupActionBar()
+            tvu_title.text =resources.getString(R.string.title_edit_profile)
+            GlideLoader(this@UserProfileActivity).loadedUserPicture(mUserDetails.image,iv_user_photo)
+            if (mUserDetails.mobile != 0L){
+               et_mobile_number.setText(mUserDetails.mobile.toString())
+            }
+            if (mUserDetails.gender == Constants.MALE){
+                rb_male.isChecked = true
+            }
+            else{
+                rb_female.isChecked = true
+            }
+        }
         iv_user_photo.setOnClickListener(this@UserProfileActivity)
         btn_submit.setOnClickListener(this@UserProfileActivity)
+    }
+    //setup action bar to display arrow back
+    private fun setupActionBar(){
+        setSupportActionBar(toolbar_user_profile_activity)
+
+        val actionBar = supportActionBar
+        if (actionBar != null){
+            actionBar.setDisplayHomeAsUpEnabled(true)
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_black_color_back_24)
+        }
+
+        toolbar_user_profile_activity.setNavigationOnClickListener{onBackPressed()}
     }
 
     override fun onClick(v: View?) {
@@ -89,6 +117,16 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
         //showErrorSnackBar("Your details are valid. You can update them",false)
         val userHashMap = HashMap<String,Any>()
 
+        val firstName = et_first_name.text.toString().trim{it <= ' '}
+        if (firstName != mUserDetails.firstName){
+            userHashMap[Constants.FIRST_NAME] = firstName
+        }
+
+        val lastName = et_last_name.text.toString().trim{it <= ' '}
+        if (lastName != mUserDetails.lastName){
+            userHashMap[Constants.LAST_NAME] = lastName
+        }
+
         val mobileNumber = et_mobile_number.text.toString().trim{ it <= ' '}
         val gender = if (rb_male.isChecked){
             Constants.MALE
@@ -99,8 +137,13 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
            userHashMap[Constants.IMAGE] =  mUserProfileImageURL
         }
 
-        if (mobileNumber.isNotEmpty()){
+        if (mobileNumber.isNotEmpty() && mobileNumber != mUserDetails.mobile.toString()){
             userHashMap[Constants.MOBILE] = mobileNumber.toLong()
+        }
+
+        if (gender.isNotEmpty() && gender != mUserDetails.gender){
+            //key:gender value:male
+            userHashMap[Constants.GENDER] = gender
         }
         //key:gender value:male
         userHashMap[Constants.GENDER] = gender
@@ -116,7 +159,7 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
             resources.getString(R.string.msg_profile_update_success),
             Toast.LENGTH_SHORT).show()
 
-        startActivity(Intent(this@UserProfileActivity, MainActivity::class.java))
+        startActivity(Intent(this@UserProfileActivity, DashboardActivity::class.java))
         finish()
     }
 

@@ -12,28 +12,31 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.RetailStudios">
-        <activity
-            android:name="com.example.retailstudios.ui.activities.DashboardActivity"
-            android:label="@string/app_name"></activity>
-        <activity
-            android:name="com.example.retailstudios.ui.activities.UserProfileActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.example.retailstudios.ui.activities.ForgotPasswordActivity"
+        <activity android:name=".ui.activities.SettingsActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name="com.example.retailstudios.ui.activities.BaseActivity" />
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name="com.example.retailstudios.ui.activities.RegisterActivity"
+            android:name=".ui.activities.DashboardActivity"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".ui.activities.UserProfileActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.example.retailstudios.ui.activities.LoginActivity"
+            android:name=".ui.activities.ForgotPasswordActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ui.activities.BaseActivity" />
         <activity
-            android:name="com.example.retailstudios.ui.activities.SplashActivity"
+            android:name=".ui.activities.RegisterActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.activities.LoginActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.activities.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -42,7 +45,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.retailstudios.ui.activities.MainActivity" />
+        <activity android:name=".ui.activities.MainActivity" />
     </application>
 
 </manifest>

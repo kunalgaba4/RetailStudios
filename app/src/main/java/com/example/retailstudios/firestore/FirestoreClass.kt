@@ -9,6 +9,7 @@ import com.example.retailstudios.ui.activities.LoginActivity
 import com.example.retailstudios.ui.activities.RegisterActivity
 import com.example.retailstudios.ui.activities.UserProfileActivity
 import com.example.retailstudios.models.User
+import com.example.retailstudios.ui.activities.SettingsActivity
 import com.example.retailstudios.utils.Constants
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -80,12 +81,14 @@ class FirestoreClass {
                 )
                 editor.apply()
 
-                //TODO Step 6: Pass the result to the Login Activity.
                 //START
                 when(activity){
                     is LoginActivity -> {
                         //call a function of base activity for transferring the result to it
                         activity.userLoggedInSuccess(user)
+                    }
+                    is SettingsActivity -> {
+                        activity.userDetailsSuccess(user)
                     }
                 }
                 //END
@@ -93,6 +96,9 @@ class FirestoreClass {
                 //hide the progress dialog if there is any error and print the error in log
                 when(activity){
                     is LoginActivity -> {
+                        activity.hideProgressDialog()
+                    }
+                    is SettingsActivity -> {
                         activity.hideProgressDialog()
                     }
                 }
