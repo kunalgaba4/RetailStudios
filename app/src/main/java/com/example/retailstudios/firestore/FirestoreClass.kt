@@ -5,11 +5,8 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.net.Uri
 import android.util.Log
-import com.example.retailstudios.ui.activities.LoginActivity
-import com.example.retailstudios.ui.activities.RegisterActivity
-import com.example.retailstudios.ui.activities.UserProfileActivity
 import com.example.retailstudios.models.User
-import com.example.retailstudios.ui.activities.SettingsActivity
+import com.example.retailstudios.ui.activities.*
 import com.example.retailstudios.utils.Constants
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -135,9 +132,9 @@ class FirestoreClass {
             }
     }
 
-    fun uploadImageToCloudStorage(activity: Activity,imageFileURI: Uri?){
+    fun uploadImageToCloudStorage(activity: Activity,imageFileURI: Uri?,imageType:String){
         val sRef:StorageReference = FirebaseStorage.getInstance().reference.child(
-                Constants.USER_PROFILE_IMAGE + System.currentTimeMillis() + "."
+                imageType + System.currentTimeMillis() + "."
                 + Constants.getFileExtension(
                     activity,imageFileURI
                 )
@@ -157,6 +154,9 @@ class FirestoreClass {
                         is UserProfileActivity -> {
                             activity.imageUploadSuccess(uri.toString())
                         }
+                        is AddProductActivity -> {
+                          activity.imageUploadSuccess(uri.toString())
+                        }
                     }
 
                 }
@@ -164,6 +164,9 @@ class FirestoreClass {
             //hide the progress dialog if there is any error and print the error in log
             when(activity){
                 is UserProfileActivity -> {
+                    activity.hideProgressDialog()
+                }
+                is AddProductActivity -> {
                     activity.hideProgressDialog()
                 }
             }

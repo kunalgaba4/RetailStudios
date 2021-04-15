@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.Uri
 import android.widget.ImageView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.annotation.GlideModule
 import com.example.retailstudios.R
 import java.io.IOException
 
