@@ -132,7 +132,7 @@ class FirestoreClass {
             }
     }
 
-    fun uploadImageToCloudStorage(activity: Activity,imageFileURI: Uri?,imageType:String){
+    fun uploadImageToCloudStorage(activity: Activity,imageFileURI: Uri?,imageType: String){
         val sRef:StorageReference = FirebaseStorage.getInstance().reference.child(
                 imageType + System.currentTimeMillis() + "."
                 + Constants.getFileExtension(
@@ -155,7 +155,7 @@ class FirestoreClass {
                             activity.imageUploadSuccess(uri.toString())
                         }
                         is AddProductActivity -> {
-                          activity.imageUploadSuccess(uri.toString())
+                            activity.imageUploadSuccess(uri.toString())
                         }
                     }
 
@@ -173,8 +173,7 @@ class FirestoreClass {
             Log.e(
                 activity.javaClass.simpleName,
                 exception.message,
-                exception
-            )
+                exception)
         }
 
     }

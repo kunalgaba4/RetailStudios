@@ -25,9 +25,11 @@ import java.io.IOException
 class AddProductActivity : BaseActivity(), View.OnClickListener {
 
     private var mSelectedImageFileURI: Uri? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_product)
+
         setupActionBar()
         iv_add_update_product.setOnClickListener(this)
         btn_submit_add_product.setOnClickListener(this)
@@ -55,7 +57,7 @@ class AddProductActivity : BaseActivity(), View.OnClickListener {
                     == PackageManager.PERMISSION_GRANTED)
                 {
                     //showErrorSnackBar("You already have the storage permission.",false)
-                    Constants.showImageChooser(this)
+                    Constants.showImageChooser(this@AddProductActivity)
                 } else{
                     /* Requests permissions to be granted to this application.These permissions
                     must be requested in your manifest,they should not be granted to your app,
