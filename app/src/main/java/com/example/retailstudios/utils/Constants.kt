@@ -7,7 +7,10 @@ import android.provider.MediaStore
 import android.webkit.MimeTypeMap
 
 object Constants {
+    // Collection in Cloud Firestore
     const val USERS: String = "users"
+    const val PRODUCTS: String = "products"
+
     const val RETAILSTUDIOS_PREFERENCES:String = "RetailStudioPrefs"
     const val LOGGED_IN_USERNAME: String = "logged_in_username"
     const val EXTRA_USER_DETAILS: String = "extra_user_details"

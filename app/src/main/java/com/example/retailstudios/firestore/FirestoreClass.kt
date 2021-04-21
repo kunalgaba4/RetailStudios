@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.net.Uri
 import android.util.Log
+import com.example.retailstudios.models.Product
 import com.example.retailstudios.models.User
 import com.example.retailstudios.ui.activities.*
 import com.example.retailstudios.utils.Constants
@@ -178,5 +179,21 @@ class FirestoreClass {
 
     }
 
-
+    fun uploadProductDetails(activity: AddProductActivity,productInfo: Product){
+        mFirestore.collection(Constants.PRODUCTS)
+                .document()
+                .set(productInfo, SetOptions.merge())
+                .addOnSuccessListener {
+                    // we call a function to transfer the result
+                    activity.productUploadSuccess()
+                }
+                .addOnFailureListener { e ->
+                    activity.hideProgressDialog()
+                    Log.e(
+                            activity.javaClass.simpleName,
+                            "Error while uploading product details",
+                            e
+                    )
+                }
+    }
 }

@@ -2,6 +2,7 @@ package com.example.retailstudios.ui.activities
 
 import android.Manifest
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -15,6 +16,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.retailstudios.R
 import com.example.retailstudios.firestore.FirestoreClass
+import com.example.retailstudios.models.Product
 import com.example.retailstudios.utils.Constants
 import com.example.retailstudios.utils.GlideLoader
 import kotlinx.android.synthetic.main.activity_add_product.*
@@ -25,6 +27,7 @@ import java.io.IOException
 class AddProductActivity : BaseActivity(), View.OnClickListener {
 
     private var mSelectedImageFileURI: Uri? = null
+    private var mProductImageURL: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,9 +84,32 @@ class AddProductActivity : BaseActivity(), View.OnClickListener {
         FirestoreClass().uploadImageToCloudStorage(this,mSelectedImageFileURI,Constants.PRODUCT_IMAGE)
     }
 
-    fun imageUploadSuccess(imageURL: String) {
+    fun productUploadSuccess(){
         hideProgressDialog()
-        showErrorSnackBar("Product image is uploaded successfully. Image URL: $imageURL",false)
+        Toast.makeText(this@AddProductActivity, resources.getString(R.string.product_uploaded_success_message), Toast.LENGTH_SHORT).show()
+        finish()
+    }
+    fun imageUploadSuccess(imageURL: String) {
+       // hideProgressDialog()
+       // showErrorSnackBar("Product image is uploaded successfully. Image URL: $imageURL",false)
+        mProductImageURL = imageURL
+        uploadProductDetails()
+    }
+
+    private fun uploadProductDetails(){
+        val username = this.getSharedPreferences(
+                Constants.RETAILSTUDIOS_PREFERENCES, Context.MODE_PRIVATE)
+                .getString(Constants.LOGGED_IN_USERNAME,"")!!
+        val product = Product(
+                FirestoreClass().getCurrentUserID(),
+                username,
+                et_product_title.text.toString().trim{ it <= ' '},
+                et_product_price.text.toString().trim{ it <= ' '},
+                et_product_description.text.toString().trim{ it <= ' '},
+                et_product_quantity.text.toString().trim{ it <= ' '},
+                mProductImageURL
+        )
+        FirestoreClass().uploadProductDetails(this,product)
     }
 
 
