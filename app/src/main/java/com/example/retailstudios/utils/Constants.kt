@@ -28,6 +28,8 @@ object Constants {
 
     const val PRODUCT_IMAGE:String = "Product_Image"
 
+    const val USER_ID: String = "user_id"
+
     const val USER_PROFILE_IMAGE: String = "User_Profile_Image"
 
     fun showImageChooser(activity:Activity){

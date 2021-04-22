@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/item_list_marginTop"
+    android:background="@color/colorWhite"
+    android:orientation="vertical"
+    android:padding="@dimen/item_list_padding"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:id="@+id/ll_item_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/item_image_padding"
+        android:background="@drawable/item_image_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+    <ImageView
+        android:id="@+id/iv_image_item"
+        android:layout_width="@dimen/item_image_width"
+        android:layout_height="@dimen/item_image_height"
+        android:contentDescription="@string/content_description"
+        android:scaleType="fitXY"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/item_image_title_price_marginStart"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/ll_item_image"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="@dimen/item_image_title_price_marginStart">
+        <com.example.retailstudios.utils.RSTextViewBold
+            android:id="@+id/tv_item_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/item_value_text_color"
+            android:textSize="@dimen/rv_item_name_textSize"
+            android:text="Name"/>
+        <com.example.retailstudios.utils.RSTextView
+            android:id="@+id/tv_item_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/rv_item_price_marginTop"
+            android:textColor="@color/item_value_text_color"
+            android:textStyle="bold"
+            android:text="$100.00"/>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

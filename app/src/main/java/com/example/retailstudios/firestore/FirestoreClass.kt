@@ -5,9 +5,11 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.net.Uri
 import android.util.Log
+import androidx.fragment.app.Fragment
 import com.example.retailstudios.models.Product
 import com.example.retailstudios.models.User
 import com.example.retailstudios.ui.activities.*
+import com.example.retailstudios.ui.fragments.ProductsFragment
 import com.example.retailstudios.utils.Constants
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -195,5 +197,26 @@ class FirestoreClass {
                             e
                     )
                 }
+    }
+
+    fun getProductsList(fragment:Fragment){
+        mFirestore.collection(Constants.PRODUCTS)
+                .whereEqualTo(Constants.USER_ID,getCurrentUserID())
+                .get()
+                .addOnSuccessListener { document ->
+                    Log.e("Product List",document.documents.toString())
+                    val productsList: ArrayList<Product> = ArrayList()
+                    for (i in document.documents){
+                        val product = i.toObject(Product::class.java)
+                        product!!.product_id = i.id
+                        productsList.add(product)
+                    }
+                    when(fragment){
+                        is ProductsFragment -> {
+                            fragment.successProductsListFromFireStore(productsList)
+                        }
+                    }
+                }
+
     }
 }
