@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import com.example.retailstudios.models.Product
 import com.example.retailstudios.models.User
 import com.example.retailstudios.ui.activities.*
+import com.example.retailstudios.ui.fragments.DashboardFragment
 import com.example.retailstudios.ui.fragments.ProductsFragment
 import com.example.retailstudios.utils.Constants
 import com.google.firebase.auth.FirebaseAuth
@@ -218,5 +219,23 @@ class FirestoreClass {
                     }
                 }
 
+    }
+
+    fun getDashBoardItemsList(fragment: DashboardFragment){
+    mFirestore.collection(Constants.PRODUCTS)
+            .get()
+            .addOnSuccessListener { document ->
+                val productsList: ArrayList<Product> = ArrayList()
+                for (i in document.documents){
+                    val product = i.toObject(Product::class.java)!!
+                     product.product_id = i.id
+                    productsList.add(product)
+                }
+                fragment.sucessDashboardItemsList(productsList)
+            }.addOnFailureListener {
+                e ->
+                fragment.hideProgressDialog()
+                Log.e(fragment.javaClass.simpleName,"Error while getting dashboarditems list.",e)
+            }
     }
 }
